@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Automatic Question Tagging System</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        margin: 20px;
+    }
+    
+    h1, h2 {
+        color: #333;
+    }
+    
+    p {
+        line-height: 1.5;
+    }
+    
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+    
+    pre {
+        background-color: #f9f9f9;
+        padding: 10px;
+        border-radius: 5px;
+    }
+    
+    ol {
+        padding-left: 20px;
+    }
+    
+    a {
+        color: #007bff;
+        text-decoration: none;
+    }
+    
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+</head>
+
+<body>
+
+<h1>Automatic Question Tagging System</h1>
+
+<h2>Abstract</h2>
+
+<p>Tagging is a widely-used approach for organizing information and facilitating content search in information systems. It is particularly relevant for categorizing questions on platforms like Quora and Stack Overflow. In this report, we analyze the StackSample:10% of Stack Overflow Q&A dataset from Kaggle. We employ various classification algorithms, including "One-vs-Rest Classifier with Support Vector Classification," "Logistic Regression," and "Random Forest Classification," to perform question tagging. Our results demonstrate that the Random Forest algorithm outperforms the others, achieving a Jaccard Score of 0.921 and a Hamming Loss of 0.011.</p>
+
+<h2>Introduction</h2>
+
+<p>Platforms such as Quora and Stack Overflow frequently prompt users to provide tags or labels for their questions to enhance categorization and improve searchability. However, users sometimes provide inaccurate or irrelevant tags, which hampers the effectiveness of these systems. To address this issue, we propose an automatic question tagging system capable of accurately identifying relevant tags for user-submitted questions.</p>
+
+<h2>Data</h2>
+
+<p>The dataset used for this analysis can be accessed at <a href="https://www.kaggle.com/stackoverflow/stacksample">https://www.kaggle.com/stackoverflow/stacksample</a>. It contains the text of 10% of the questions and answers from the Stack Overflow programming Q&A website. The dataset is divided into three tables:</p>
+
+<ol>
+<li>Questions: This table includes non-deleted Stack Overflow questions with an ID that is a multiple of 10. It provides information such as the title, body, creation date, closed date (if applicable), score, and owner ID.</li>
+<li>Answers: Here, you can find the answers corresponding to the questions in the first table. It includes the body, creation date, score, owner ID, and references the Questions table using the ParentId column.</li>  
+<li>Tags: Each question has a set of tags associated with it, which are listed in this table.</li>
+</ol>
+
+<p>To prepare the data for analysis, we performed data and text preprocessing steps. First, we removed unnecessary columns such as creation date, closed date, and score. Then, we cleaned the text by removing HTML formatting, converting text to lowercase, transforming abbreviations, removing punctuation, handling popular tags like "C#", lemmatizing words, and removing stop words. Exploratory Data Analysis was also conducted to identify popular patterns and tags.</p>
+
+<h2>Analysis and Results</h2>
+
+<p>After preprocessing and data exploration, we trained our models using 80% of the data. We applied the following classification algorithms: "One-vs-Rest Classifier with Support Vector Classifier," "Logistic Regression," and "Random Forest Classification."</p>
+
+<p>We evaluated the models using the following metrics:</p>
+
+<ol>
+<li>Jaccard Score: The Jaccard similarity index measures the similarity between two sets of data, with values ranging from 0 to 1. A higher score indicates a greater degree of similarity.</li>  
+<li>Hamming Loss: This metric represents the fraction of incorrect labels to the total number of labels. In multi-label classification, Hamming Loss penalizes only individual labels.</li>
+</ol>  
+
+<p>Here are the results obtained from the models:</p>
+
+<blockquote>
+<p>- Support Vector Classification:</p>
+  
+<p>- Jaccard Score: 0.6473743535338152</p>
+
+<p>- Hamming Loss: 0.0123506539413220</p>
+
+<p>- Logistic Regression:</p>
+
+<p>- Jaccard Score: 0.892213344137751</p>
+  
+<p>- Hamming Loss: 0.0124319547543301</p>
+
+<p>- Random Forest Classification:</p>
+  
+<p>- Jaccard Score: 0.92153434145231</p>
+
+<p>- Hamming Loss: 0.011539876329</p>  
+</blockquote>
+
+<p>Based on these results, the Random Forest Classification algorithm achieved the highest Jaccard Score and the lowest Hamming Loss, making it the best fit model for the given dataset.</p>
+
+<h2>Conclusion</h2>
+
+<p>In this analysis, we applied machine learning algorithms to the TF-IDF vectorization of the text. This approach yielded better accuracy compared to vectorizing the body and title individually. Among the classifiers tested, the Random Forest Classifier outperformed both the logistic regression classifier and support vector classifier in terms of both Jaccard score (similarity) and Hamming loss (data loss). Thus, we consider the Random Forest Classifier as the most suitable model for future analysis with respect to the dataset used.</p>
+
+<h2>Future Research Directions</h2>
+
+<p>For future research, we recommend exploring the use of Artificial Neural Networks, specifically incorporating state-of-the-art NLP transformers such as BERT and GPT. This approach would allow for retaining sequence information and directly feeding textual data into sequence-to-sequence models, as detailed in Appendix_1. In contrast, traditional approaches involve tokenizing sentences and converting them to numerical representations using frequency calculations or the TF-IDF approach.</p>
+
+<h2>Milestones and References</h2>
+
+<p>The milestones achieved in this project include Data & Text Preprocessing, Basic Data Analysis on Tags, and Supervised ML models. The following references were used:</p>
+
+<ol>
+<li><a href="https://en.wikipedia.org/wiki/Multi-label_classification#Statistics_and_evaluation_metrics">Multi-label classification - Wikipedia</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Multi-label_classification#Statistics_and_evaluation_metrics">TF-IDF approach - Wikipedia</a></li>
+<li><a href="https://www.kaggle.com/vikashrajluhaniwal/multi-label-classification-for-tag-prediction">Kaggle: Multi-label classification for tag prediction</a></li>  
+</ol>
+
+<h2>Appendix</h2>
+
+<p>For further reading, you may refer to the following resources:</p>
+
+<ul>
+<li><a href="https://jalammar.github.io/illustrated-transformer/">The Illustrated Transformer</a></li>
+<li><a href="https://proceedings.neurips.cc/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf">Attention Is All You Need</a></li>  
+</ul>
+
+</body>
+</html>
